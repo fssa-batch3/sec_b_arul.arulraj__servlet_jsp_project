@@ -197,7 +197,7 @@ nav ul li a {
                         </h1>
                     </div>
                     <div class="main-form">
-                        <form action="create" method="post">
+                        <form action=book/create method="post">
                             <div class="inputDiv">
                                 <span>Book Title</span>
                                 <input type="text" name="title" id="name" placeholder="Book Title" required>

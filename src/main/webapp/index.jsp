@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
     <meta charset="UTF-8">
-    <title>Index - Techno Library</title>
+    <title>Techno Library</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100;1,300&display=swap"
@@ -156,7 +156,6 @@ nav ul li a {
             <li><a href="index.jsp">HOME</a></li>
             <li><a href="add_book.jsp">ADD BOOK</a></li>
             <li><a href="book_list.jsp">BOOKS</a></li>
-            <li><a href="get_book_by_id.jsp">FIND BOOK BY ID</a></li>
         </ul>
     </nav>
     <img src="https://iili.io/HyVl5l4.png" id="menuBtn">

@@ -25,30 +25,31 @@
 		<input type="number" value="<%= book.getPrice() %>" name="price" placeholder="Price" required>
 		<button type="submit">Submit</button>
 	</form>
-	<form action="titleAndDate_update" method="post">
-		<input type="text" name="title" placeholder="book name" required>
-		<input type="date" name="published_date" placeholder="published date"
+	<form action="update/titleandpublisheddate?id=<%=id %>" method="post">
+		<input type="text" value="<%= book.getTitle() %>" name="title" placeholder="book name" required>
+		<input type="date" value="<%= book.getPublishedDate() %>" name="published_date" placeholder="published date"
 			required>
 		<button type="submit">Submit</button>
 		
 	</form>
-	<form action="authorNameAndPublisherIdCategoryId_update" method="post">
-		<input type="text" name="author" placeholder="author name" required>
+	<form action="update/AuthorNamePublisherIdcategoryId?id=<%=id %>" method="post">
+	    <label><b>Author Name : </b></label>
+		<input type="text" value="<%= book.getAuthor() %>" name="author" placeholder="author name" required>
 		<label><b>Publisher Id : </b></label>
-		<select>
+		<select name="publisher_name">
 	<% PublisherService publisherService = new PublisherService();
                Set<Publisher> listOfPublisher = publisherService.findAllPublisher();
                for (Publisher publisher : listOfPublisher) { %>
-                <option  value="<%= publisher.getId() %>" ><%= publisher.getName() %></option>
+                <option value="<%= publisher.getId()%>"><%= publisher.getName() %></option>
             <% } %>
 		</select> 
 		
 		<label><b>Category Id : </b></label>
-		<select>
+		<select name="category_name">
 	<% CategoryService categoryService = new CategoryService();
                Set<Category> listOfCategory = categoryService.findAllcategory();
                for (Category category : listOfCategory) { %>
-                <option  value="<%= category.getId() %>" ><%= category.getName() %></option>
+                <option value="<%= category.getId()%>" ><%= category.getName() %></option>
             <% } %>
 		</select> 
 		<button type="submit">Submit</button>

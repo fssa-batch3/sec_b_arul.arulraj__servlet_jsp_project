@@ -63,6 +63,8 @@ tr:nth-child(even) {
     <%
        }
     %>
+    
+    <a href="index.jsp"><h1>Back to Home Page</h1></a>
 </body>
 </html>
 </html>
