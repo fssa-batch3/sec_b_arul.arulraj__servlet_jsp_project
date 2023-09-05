@@ -32,7 +32,7 @@
 
 .logo {
     margin-top: 30px;
-    width: 100px;
+    width: 70px;
 }
 
 .header-text {

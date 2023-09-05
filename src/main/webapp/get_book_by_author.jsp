@@ -1,9 +1,5 @@
-<%@page import="in.fssa.technolibrary.model.Category"%>
-<%@page import="in.fssa.technolibrary.service.CategoryService"%>
 <%@page import="in.fssa.technolibrary.model.Book"%>
 <%@page import="java.util.Set"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@page import="in.fssa.technolibrary.service.BookService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -78,7 +74,8 @@ button:hover {
 .book-container {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: flex-start;
+	justify-content: center;
+	margin-top: 100px;
 	gap: 20px;
 }
 
@@ -119,59 +116,15 @@ button:hover {
 .book-actions a:hover {
 	background-color: #0056b3;
 }
-.hide{
-	display:none;
-}
 </style>
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
-	<h1>List Of Books</h1>
-	<section class="mainsection">
-		<section class="section1">
-			<%
-			BookService bookService = new BookService();
-			%>
-			<%
-			Set<Book> listOfBook = bookService.findAllBook();
-			%>
-
-			<div class="search_box">
-				<form action="book_list/authorDetails" method="get">
-					<input placeholder="Search Author" type="text" name="authorName" />
-
-					<button type="submit">Search</button>
-				</form>
-			</div>
-			<div class="Category_box">
-				<h2>Filter by Category</h2>
-				<form action="book_list/categoryDetails" method="get">
-					<div>
-						<%
-						CategoryService categoryService = new CategoryService();
-						%>
-						<%
-						Set<Category> listOfCategories = categoryService.findAllcategory();
-						%>
-
-						<%
-						for (Category category : listOfCategories) {
-						%>
-						<label> <input type="radio" name="categoryId"
-							value="<%=category.getId()%>"> <%=category.getName()%>
-						</label><br>
-						<%
-						}
-						%>
-					</div>
-
-					<button type="submit">Apply Filter</button>
-				</form>
-			</div>
-		</section>
-
-		<section class="section2">
-			<div class="book-container">
+<jsp:include page="header.jsp"></jsp:include>
+ <h1>Book List By Author</h1>
+<%String authorNameParam = request.getParameter("authorName"); %>
+    <%BookService bookService = new BookService();%>
+ 	<%Set<Book> listOfBook = bookService.findByAuthorName(authorNameParam);%>
+   <div class="book-container">
 				<%
 				for (Book book : listOfBook) {
 				%>
@@ -189,20 +142,15 @@ button:hover {
 						<p>
 							<strong>Price:</strong>
 							<b>Rs.</b><%=book.getPrice()%> </p>
-							<p class="hide"><%=book.getCategoryId()%></p>
-							<p class="hide"><%=book.getAuthor()%></p>
-							<p class="hide"><%=book.getId()%></p>
 					</div>
 					<div class="book-actions">
-						<a href="book_list/details?id=<%=book.getId()%>">View</a>
-						
+						<a href="<%=request.getContextPath()%>/book_list/details?id=<%=book.getId()%>">View</a>
 					</div>
 				</div>
 				<%
 				}
 				%>
 			</div>
-		</section>
-	</section>
 </body>
+</html>
 </html>

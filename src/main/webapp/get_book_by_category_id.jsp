@@ -7,48 +7,150 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+body {
+	background-color: #f5f5f5;
+	font-family: Arial, sans-serif;
+	color: #333;
+	margin: 0;
+	padding: 0;
 }
-td, th {
-  border: 1px solid #DDDDDD;
-  text-align: left;
-  padding: 8px;
+
+.mainsection {
+	display: flex;
+	flex_direction: row;
+	margin-top: 20px;
 }
-tr:nth-child(even) {
-  background-color: #DDDDDD;
+
+h1 {
+	text-align: center;
+	font-size: 24px;
+	margin-top: 120px;
+}
+
+h2 {
+	font-size: 18px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+form {
+	margin-top: 10px;
+}
+
+input[type="text"] {
+	width: 150px;
+	padding: 5px;
+	margin-left: 7px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+button {
+	cursor: pointer;
+	margin-top: 20px;
+	margin-left: 40px;
+	padding: 5px 10px;
+	background-color: #f67c92;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+.search_box {
+	margin-left: 10px;
+}
+
+.Category_box {
+	margin-left: 10px;
+}
+/* Style the book container */
+.book-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 100px;
+	gap: 20px;
+}
+
+/* Style each book box */
+.book-box {
+	border: 1px solid #ccc;
+	padding: 20px;
+	width: 200px;
+	background-color: #f9f9f9;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Style the book details section */
+.book-details {
+	flex-grow: 1;
+}
+
+.section2 {
+	margin-left: 20px;
+}
+
+.book-actions {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.book-actions a {
+	text-decoration: none;
+	padding: 5px 10px;
+	background-color: #f67c92;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.book-actions a:hover {
+	background-color: #0056b3;
 }
 </style>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 
-<h1>Book List By Category</h1>
-<%String categoryIdParam = request.getParameter("categoryId"); %>
-    <%int id = Integer.parseInt(categoryIdParam); %>
-    <%BookService bookService = new BookService();%>
- 	<%Set<Book> listOfBook = bookService.findBookByCategoryId(id);%>
-    <table>
-        <tr>
-            <th>Book Id</th>
-            <th>Book Title</th>
-            <th>Author Name</th>
-            <th>Publisher Id</th>
-            <th>Category Id</th>
-            <th>Published Date</th>
-            <th>Price</th>
-        </tr>
-         <% for(Book book: listOfBook){ %>
-  <tr>
-    <td><%= book.getId() %></td>
-    <td><%= book.getTitle() %></td>
-    <td><%= book.getAuthor() %></td>
-    <td><%= book.getPublisherId() %></td>
-    <td><%= book.getCategoryId() %></td>
-    <td><%= book.getPublishedDate() %></td>
-    <td><%= book.getPrice() %></td>
-  <% }%>
-  </table>
+	<%
+	Set<Book> listOfBook = (Set<Book>) request.getAttribute("categoryDetails");
+	%>
+	<h1>Book List By Category</h1>
+	<div class="book-container">
+		<%
+		for (Book book : listOfBook) {
+		%>
+		<div class="book-box">
+			<div class="book-details">
+				<p>
+					<strong>Book Title:</strong>
+					<%=book.getTitle()%></p>
+				<div>
+					<img src="https://iili.io/J9IIfZg.png">
+				</div>
+				<p>
+					<strong>Author Name:</strong>
+					<%=book.getAuthor()%></p>
+				<p>
+					<strong>Price:</strong> <b>Rs.</b><%=book.getPrice()%>
+				</p>
+			</div>
+			<div class="book-actions">
+				<a
+					href="<%=request.getContextPath()%>/book_list/details?id=<%=book.getId()%>">View</a>
+			</div>
+		</div>
+		<%
+		}
+		%>
+	</div>
 </body>
 </html>

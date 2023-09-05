@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class EditBookServlet
  */
-@WebServlet("/book/edit")
+@WebServlet("/book_list/edit")
 public class EditBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
