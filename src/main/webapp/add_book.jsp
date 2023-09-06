@@ -190,6 +190,7 @@ nav ul li a {
 </head>
 
 <body class="main_bg">
+	<jsp:include page="header.jsp"></jsp:include>
 	<section id="about">
 		<div class="about-container">
 			<div class="about-left-col">
@@ -204,7 +205,8 @@ nav ul li a {
 						</h1>
 					</div>
 					<div class="main-form">
-						<form action=book/create method="post">
+						<form action="<%=request.getContextPath()%>/book/create"
+							method="post">
 							<div class="inputDiv">
 								<span>Book Title</span> <input type="text" name="title"
 									id="name" placeholder="Book Title" required>
@@ -215,10 +217,11 @@ nav ul li a {
 							</div>
 							<div class="inputDiv">
 								<span>Publisher Name</span> <select name="publisher_name">
+								<%
+									Set<Publisher> publisherList = (Set<Publisher>) request.getAttribute("publisherDetails");
+									%>
 									<%
-									PublisherService publisherService = new PublisherService();
-									Set<Publisher> listOfPublisher = publisherService.findAllPublisher();
-									for (Publisher publisher : listOfPublisher) {
+									for (Publisher publisher : publisherList) {
 									%>
 									<option value="<%=publisher.getId()%>"><%=publisher.getName()%></option>
 									<%
@@ -229,9 +232,10 @@ nav ul li a {
 							<div class="inputDiv">
 								<span>Category Name</span> <select name="category_name">
 									<%
-									CategoryService categoryService = new CategoryService();
-									Set<Category> listOfCategory = categoryService.findAllcategory();
-									for (Category category : listOfCategory) {
+									Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
+									%>
+									<%
+									for (Category category : categoryList) {
 									%>
 									<option value="<%=category.getId()%>"><%=category.getName()%></option>
 									<%
@@ -256,28 +260,6 @@ nav ul li a {
 			</div>
 		</div>
 	</section>
-
-	<nav id="sideNav">
-		<ul>
-			<li><a href="index.jsp">HOME</a></li>
-			<li><a href="add_book.jsp">ADD BOOK</a></li>
-			<li><a href="book_list.jsp">BOOKS</a></li>
-		</ul>
-	</nav>
-	<img src="https://iili.io/HyVl5l4.png" id="menuBtn">
-	<script>
-		let menuBtn = document.getElementById("menuBtn");
-		let sideNav = document.getElementById("sideNav");
-		sideNav.style.right = "-250px";
-
-		menuBtn.onclick = function() {
-			if (sideNav.style.right === "-250px") {
-				sideNav.style.right = "0";
-			} else {
-				sideNav.style.right = "-250px";
-			}
-		}
-	</script>
 </body>
 
 </html>

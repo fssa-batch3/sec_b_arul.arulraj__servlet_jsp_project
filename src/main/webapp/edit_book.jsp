@@ -78,40 +78,49 @@ h1 {
 		if (book != null) {
 	%>
 	<section class="main">
-		<form action="update/price?id=<%=id%>" method="post">
-			<label><b>Price : </b></label><input type="number" value="<%=book.getPrice()%>" name="price"
-				placeholder="Price" required>
+		<form
+			action="<%=request.getContextPath()%>/book/update/price?id=<%=id%>"
+			method="post">
+			<label><b>Price : </b></label><input type="number"
+				value="<%=book.getPrice()%>" name="price" placeholder="Price"
+				required>
 			<button type="submit">Submit</button>
 
 		</form>
-		<form action="update/titleandpublisheddate?id=<%=id%>" method="post">
-			<label><b>Book Name : </b></label> <input type="text" value="<%=book.getTitle()%>" name="title"
-				placeholder="book name" required> <label><b>Published
-				Date : </b></label> <input type="date" value="<%=book.getPublishedDate()%>"
+		<form
+			action="<%=request.getContextPath()%>/book/update/titleandpublisheddate?id=<%=id%>"
+			method="post">
+			<label><b>Book Name : </b></label> <input type="text"
+				value="<%=book.getTitle()%>" name="title" placeholder="book name"
+				required> <label><b>Published Date : </b></label> <input
+				type="date" value="<%=book.getPublishedDate()%>"
 				name="published_date" placeholder="published date" required>
 			<button type="submit">Submit</button>
 
 		</form>
-		<form action="update/AuthorNamePublisherIdcategoryId?id=<%=id%>"
+		<form
+			action="<%=request.getContextPath()%>/book/update/AuthorNamePublisherIdcategoryId?id=<%=id%>"
 			method="post">
 			<label><b>Author Name : </b></label> <input type="text"
 				value="<%=book.getAuthor()%>" name="author"
 				placeholder="author name" required> <label><b>Publisher
-					Name : </b></label> <select name="publisher_id">
+					Name : </b></label> <select name="publisher_name">
 				<%
-				PublisherService publisherService = new PublisherService();
-				Set<Publisher> listOfPublisher = publisherService.findAllPublisher();
-				for (Publisher publisher : listOfPublisher) {
+				Set<Publisher> publisherList = (Set<Publisher>) request.getAttribute("publisherDetails");
+				%>
+				<%
+				for (Publisher publisher : publisherList) {
 				%>
 				<option value="<%=publisher.getId()%>"><%=publisher.getName()%></option>
 				<%
 				}
 				%>
-			</select> <label><b>Category Name : </b></label> <select name="category_id">
+			</select> <label><b>Category Name : </b></label> <select name="category_name">
 				<%
-				CategoryService categoryService = new CategoryService();
-				Set<Category> listOfCategory = categoryService.findAllcategory();
-				for (Category category : listOfCategory) {
+				Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
+				%>
+				<%
+				for (Category category : categoryList) {
 				%>
 				<option value="<%=category.getId()%>"><%=category.getName()%></option>
 				<%

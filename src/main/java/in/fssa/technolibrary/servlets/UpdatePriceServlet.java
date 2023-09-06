@@ -30,8 +30,8 @@ public class UpdatePriceServlet extends HttpServlet {
 			String stringId = request.getParameter("id");
 			if (stringId != null && !stringId.isEmpty()) {
 				int id = Integer.parseInt(stringId);
-				BookService.updateBookPrice(id, book);
-				response.sendRedirect(request.getContextPath()+"/book_list");
+				BookService.updatePrice(id, book);
+				response.sendRedirect(request.getContextPath()+"/book/list");
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();

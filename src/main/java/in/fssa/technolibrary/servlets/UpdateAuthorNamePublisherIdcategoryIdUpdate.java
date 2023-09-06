@@ -1,6 +1,7 @@
 package in.fssa.technolibrary.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,7 @@ public class UpdateAuthorNamePublisherIdcategoryIdUpdate extends HttpServlet {
 			String cat_name = request.getParameter("category_name");
 			System.out.println(cat_name);
 			int category_id = Integer.parseInt(cat_name);
+			
 			book.setAuthor(author);
 			book.setPublisherId(publisher_id);
 			book.setCategoryId(category_id);
@@ -36,8 +38,8 @@ public class UpdateAuthorNamePublisherIdcategoryIdUpdate extends HttpServlet {
 			String stringId = request.getParameter("id");
 			if (stringId != null && !stringId.isEmpty()) {
 				int id = Integer.parseInt(stringId);
-				BookService.updateBookAuthorNamePublisherIdCategoryId(id, book);
-				response.sendRedirect(request.getContextPath() + "/book_list");
+				BookService.updateAuthorNamePublisherIdCategoryId(id, book);
+				response.sendRedirect(request.getContextPath() + "/book/list");
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();

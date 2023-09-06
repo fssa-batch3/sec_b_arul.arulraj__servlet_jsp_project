@@ -1,6 +1,7 @@
 package in.fssa.technolibrary.servlets;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ public class AddBookServlet extends HttpServlet {
 
 		Book newBook = new Book();
 		try {
+			
 			String cat_name = request.getParameter("category_name");
 			int category_id = Integer.parseInt(cat_name);
 			String pub_name = request.getParameter("publisher_name");
@@ -40,10 +42,8 @@ public class AddBookServlet extends HttpServlet {
 			newBook.setPublisherId(publisher_id);
 			newBook.setPublishedDate(request.getParameter("published_date"));
 
-
-			System.out.print(newBook);
 			BookService.createNewBook(newBook);
-			response.sendRedirect(request.getContextPath()+"/book_list");
+			response.sendRedirect(request.getContextPath()+"/book/list");
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		} catch (ServiceException e) {

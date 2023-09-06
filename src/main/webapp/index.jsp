@@ -132,7 +132,7 @@ nav ul li a {
 </head>
 
 <body>
-
+	<jsp:include page="header.jsp"></jsp:include>
     <section id="header">
         <div class="container">
             <img src="https://iili.io/HyVXucu.png" class="logo">
@@ -151,33 +151,7 @@ nav ul li a {
             </div>
         </div>
     </section>
-    <nav id="sideNav">
-        <ul>
-            <li><a href="index.jsp">HOME</a></li>
-            <li><a href="add_book.jsp">ADD BOOK</a></li>
-            <li><a href="book_list.jsp">BOOKS</a></li>
-        </ul>
-    </nav>
-    <img src="https://iili.io/HyVl5l4.png" id="menuBtn">
-
-
-    <script>
-					document.addEventListener("DOMContentLoaded", function() {
-						let menuBtn = document.getElementById("menuBtn");
-						let sideNav = document.getElementById("sideNav");
-
-						sideNav.style.right = "-250px";
-
-						menuBtn.onclick = function() {
-							if (sideNav.style.right === "-250px") {
-								sideNav.style.right = "0";
-							} else {
-								sideNav.style.right = "-250px";
-							}
-						}
-
-					});
-				</script>
+   
 </body>
 
 </body>

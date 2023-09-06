@@ -12,35 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.fssa.technolibrary.exception.ServiceException;
 import in.fssa.technolibrary.model.Category;
-import in.fssa.technolibrary.model.Publisher;
 import in.fssa.technolibrary.service.CategoryService;
-import in.fssa.technolibrary.service.PublisherService;
 
 /**
- * Servlet implementation class NewBookServlet
+ * Servlet implementation class GetAllServlet
  */
-@WebServlet("/book/new")
-public class NewBookServlet extends HttpServlet {
+@WebServlet("/category/list")
+public class GetAllCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		
 		try {
 			CategoryService categoryService = new CategoryService();
 			Set<Category> categoryList = categoryService.findAllcategory();
 			request.setAttribute("categoryDetails", categoryList);
-			
-			PublisherService publisherService = new PublisherService();
-			Set<Publisher> listOfPublisher = publisherService.findAllPublisher();
-			request.setAttribute("publisherDetails", listOfPublisher);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/add_book.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/category_list.jsp");
 			rd.forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 		
-		
+
 	}
 
 }

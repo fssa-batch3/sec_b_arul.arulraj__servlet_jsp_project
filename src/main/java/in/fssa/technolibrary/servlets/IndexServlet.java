@@ -10,20 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FindBookByIdServlet
+ * Servlet implementation class IndexServlet
  */
-@WebServlet("/book_list/details")
-public class FindBookByIdServlet extends HttpServlet {
+@WebServlet("/index")
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	@Override
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-				RequestDispatcher rd = request.getRequestDispatcher("/get_book_by_id.jsp");
-	    		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		rd.forward(request, response);
+	
 	}
-		
+
 }

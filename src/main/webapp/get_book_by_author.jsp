@@ -96,9 +96,10 @@ button:hover {
 	flex-grow: 1;
 }
 
-.section2{
+.section2 {
 	margin-left: 20px;
 }
+
 .book-actions {
 	display: flex;
 	justify-content: space-between;
@@ -119,38 +120,39 @@ button:hover {
 </style>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
- <h1>Book List By Author</h1>
-<%String authorNameParam = request.getParameter("authorName"); %>
-    <%BookService bookService = new BookService();%>
- 	<%Set<Book> listOfBook = bookService.findByAuthorName(authorNameParam);%>
-   <div class="book-container">
-				<%
-				for (Book book : listOfBook) {
-				%>
-				<div class="book-box">
-					<div class="book-details">
-						<p>
-							<strong>Book Title:</strong>
-							<%=book.getTitle()%></p>
-						<div>
-							<img src="https://iili.io/J9IIfZg.png">
-						</div>
-						<p>
-							<strong>Author Name:</strong>
-							<%=book.getAuthor()%></p>
-						<p>
-							<strong>Price:</strong>
-							<b>Rs.</b><%=book.getPrice()%> </p>
-					</div>
-					<div class="book-actions">
-						<a href="<%=request.getContextPath()%>/book_list/details?id=<%=book.getId()%>">View</a>
-					</div>
+	<jsp:include page="header.jsp"></jsp:include>
+	<h1>Book List By Author</h1>
+	<%
+	Set<Book> authorList = (Set<Book>) request.getAttribute("authorList");
+	%>
+	<div class="book-container">
+		<%
+		for (Book book : authorList) {
+		%>
+		<div class="book-box">
+			<div class="book-details">
+				<p>
+					<strong>Book Title:</strong>
+					<%=book.getTitle()%></p>
+				<div>
+					<img src="https://iili.io/J9IIfZg.png">
 				</div>
-				<%
-				}
-				%>
+				<p>
+					<strong>Author Name:</strong>
+					<%=book.getAuthor()%></p>
+				<p>
+					<strong>Price:</strong> <b>Rs.</b><%=book.getPrice()%>
+				</p>
 			</div>
+			<div class="book-actions">
+				<a
+					href="<%=request.getContextPath()%>/book_list/details?id=<%=book.getId()%>">View</a>
+			</div>
+		</div>
+		<%
+		}
+		%>
+	</div>
 </body>
 </html>
 </html>

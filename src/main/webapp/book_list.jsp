@@ -1,17 +1,15 @@
 <%@page import="in.fssa.technolibrary.model.Category"%>
-<%@page import="in.fssa.technolibrary.service.CategoryService"%>
 <%@page import="in.fssa.technolibrary.model.Book"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="in.fssa.technolibrary.service.BookService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Book List</title>
 <style>
 body {
 	background-color: #f5f5f5;
@@ -99,9 +97,10 @@ button:hover {
 	flex-grow: 1;
 }
 
-.section2{
+.section2 {
 	margin-left: 20px;
 }
+
 .book-actions {
 	display: flex;
 	justify-content: space-between;
@@ -119,8 +118,9 @@ button:hover {
 .book-actions a:hover {
 	background-color: #0056b3;
 }
-.hide{
-	display:none;
+
+.hide {
+	display: none;
 }
 </style>
 </head>
@@ -130,14 +130,15 @@ button:hover {
 	<section class="mainsection">
 		<section class="section1">
 			<%
-			BookService bookService = new BookService();
+			Set<Book> bookList = (Set<Book>) request.getAttribute("bookDetails");
 			%>
 			<%
-			Set<Book> listOfBook = bookService.findAllBook();
+			Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
 			%>
 
 			<div class="search_box">
-				<form action="book_list/authorDetails" method="get">
+				<form action="<%=request.getContextPath()%>/book_list/authorDetails"
+					method="get">
 					<input placeholder="Search Author" type="text" name="authorName" />
 
 					<button type="submit">Search</button>
@@ -145,17 +146,13 @@ button:hover {
 			</div>
 			<div class="Category_box">
 				<h2>Filter by Category</h2>
-				<form action="book_list/categoryDetails" method="get">
+				<form
+					action="<%=request.getContextPath()%>/book_list/categoryDetails"
+					method="get">
 					<div>
-						<%
-						CategoryService categoryService = new CategoryService();
-						%>
-						<%
-						Set<Category> listOfCategories = categoryService.findAllcategory();
-						%>
 
 						<%
-						for (Category category : listOfCategories) {
+						for (Category category : categoryList) {
 						%>
 						<label> <input type="radio" name="categoryId"
 							value="<%=category.getId()%>"> <%=category.getName()%>
@@ -173,7 +170,7 @@ button:hover {
 		<section class="section2">
 			<div class="book-container">
 				<%
-				for (Book book : listOfBook) {
+				for (Book book : bookList) {
 				%>
 				<div class="book-box">
 					<div class="book-details">
@@ -187,15 +184,16 @@ button:hover {
 							<strong>Author Name:</strong>
 							<%=book.getAuthor()%></p>
 						<p>
-							<strong>Price:</strong>
-							<b>Rs.</b><%=book.getPrice()%> </p>
-							<p class="hide"><%=book.getCategoryId()%></p>
-							<p class="hide"><%=book.getAuthor()%></p>
-							<p class="hide"><%=book.getId()%></p>
+							<strong>Price:</strong> <b>Rs.</b><%=book.getPrice()%>
+						</p>
+						<p class="hide"><%=book.getCategoryId()%></p>
+						<p class="hide"><%=book.getAuthor()%></p>
+						<p class="hide"><%=book.getId()%></p>
 					</div>
 					<div class="book-actions">
-						<a href="book_list/details?id=<%=book.getId()%>">View</a>
-						
+						<a
+							href="<%=request.getContextPath()%>/book_list/details?id=<%=book.getId()%>">View</a>
+
 					</div>
 				</div>
 				<%

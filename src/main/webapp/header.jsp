@@ -63,13 +63,17 @@ img {
 </head>
 <body>
 <header class="fixed-header">
-		<a href="index.jsp"><img src="https://iili.io/HyVXucu.png"
+		<a href="<%=request.getContextPath()%>/index"><img src="https://iili.io/HyVXucu.png"
 			class="logo"></a>
 		<nav id="sideNav">
 			<ul>
-				<li><a href="<%=request.getContextPath()%>/index.jsp">HOME</a></li>
-				<li><a href="<%=request.getContextPath()%>/add_book.jsp">ADD BOOK</a></li>
-				<li><a href="<%=request.getContextPath()%>/book_list.jsp">BOOKS</a></li>
+				<li><a href="<%=request.getContextPath()%>/index">HOME</a></li>
+				<li><a href="<%=request.getContextPath()%>/book/new">ADD BOOK</a></li>
+				<li><a href="<%=request.getContextPath()%>/book/list">BOOKS</a></li>
+				<li><a href="<%=request.getContextPath()%>/publisher/new">ADD PUBLISHER</a></li>
+				<li><a href="<%=request.getContextPath()%>/publisher/list">PUBLISHERS</a></li>
+				<li><a href="<%=request.getContextPath()%>/category/new">ADD CATEGORYS</a></li>
+				<li><a href="<%=request.getContextPath()%>/category/list">CATEGORYS</a></li>
 			</ul>
 		</nav>
 		<img src="https://iili.io/HyVl5l4.png" id="menuBtn">

@@ -30,8 +30,8 @@ public class UpdateTitleAndDateServlet extends HttpServlet {
 			String stringId = request.getParameter("id");
 			if (stringId != null && !stringId.isEmpty()) {
 				int id = Integer.parseInt(stringId);
-				BookService.updateBookTitleAndDate(id, book);
-				response.sendRedirect(request.getContextPath()+"/book_list");
+				BookService.updateTitleAndDate(id, book);
+				response.sendRedirect(request.getContextPath()+"/book/list");
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
