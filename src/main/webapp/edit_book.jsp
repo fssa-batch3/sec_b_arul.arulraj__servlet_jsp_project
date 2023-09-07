@@ -82,7 +82,7 @@ h1 {
 			action="<%=request.getContextPath()%>/book/update/price?id=<%=id%>"
 			method="post">
 			<label><b>Price : </b></label><input type="number"
-				value="<%=book.getPrice()%>" name="price" placeholder="Price"
+				value="<%=book.getPrice()%>" name="price" placeholder="Price" min="1"
 				required>
 			<button type="submit">Submit</button>
 
@@ -117,6 +117,7 @@ h1 {
 				%>
 			</select> <label><b>Category Name : </b></label> <select name="category_name">
 				<%
+				
 				Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
 				%>
 				<%

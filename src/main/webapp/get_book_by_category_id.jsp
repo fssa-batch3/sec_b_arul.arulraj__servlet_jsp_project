@@ -123,7 +123,10 @@ button:hover {
 	<%
 	Set<Book> listOfBook = (Set<Book>) request.getAttribute("categoryDetails");
 	%>
-	<h1>Book List By Category</h1>
+	<%
+	String category = (String) request.getAttribute("categoryName");
+	%>
+	<h1>Book List By Category : <Strong><%= category %></Strong></h1>
 	<div class="book-container">
 		<%
 		for (Book book : listOfBook) {

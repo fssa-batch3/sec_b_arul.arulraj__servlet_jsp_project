@@ -1,7 +1,6 @@
 package in.fssa.technolibrary.servlets;
 
 import java.io.IOException;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,11 +43,9 @@ public class AddBookServlet extends HttpServlet {
 
 			BookService.createNewBook(newBook);
 			response.sendRedirect(request.getContextPath()+"/book/list");
-		} catch (ValidationException e) {
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		} 
 
 	}
 }

@@ -31,8 +31,10 @@ public class EditBookServlet extends HttpServlet {
 			CategoryService categoryService = new CategoryService();
 			Set<Category> categoryList = categoryService.findAllcategory();
 			request.setAttribute("categoryDetails", categoryList);
+			
 			PublisherService publisherService = new PublisherService();
 			Set<Publisher> listOfPublisher = publisherService.findAllPublisher();
+			
 			request.setAttribute("publisherDetails", listOfPublisher);
 			RequestDispatcher rd = request.getRequestDispatcher("/edit_book.jsp");
 			rd.forward(request, response);

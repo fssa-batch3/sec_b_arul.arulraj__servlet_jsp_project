@@ -190,6 +190,18 @@ nav ul li a {
 </head>
 
 <body class="main_bg">
+
+	<%
+	String error = (String) request.getAttribute("errorMessage");
+	%>
+	<%
+	Set<Publisher> publisherList = (Set<Publisher>) request.getAttribute("publisherDetails");
+	%>
+	<%
+	Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
+	%>
+	
+
 	<jsp:include page="header.jsp"></jsp:include>
 	<section id="about">
 		<div class="about-container">
@@ -205,21 +217,32 @@ nav ul li a {
 						</h1>
 					</div>
 					<div class="main-form">
-						<form action="<%=request.getContextPath()%>/book/create"
-							method="post">
+						<form action="<%=request.getContextPath()%>/book/create" method="post">
 							<div class="inputDiv">
+								<%
+								if (request.getParameter("name") != null) {
+								%><span>Book Title</span> <input
+									value="<%=request.getParameter("name")%>" type="text"
+									name="title" id="name" placeholder="Book Title" required>
+								<%
+								} else {
+								%>
 								<span>Book Title</span> <input type="text" name="title"
 									id="name" placeholder="Book Title" required>
+
+								<%
+								}
+								%>
+
 							</div>
 							<div class="inputDiv">
 								<span>Author Name</span> <input type="text" name="author"
 									id="name" placeholder="Author Name" required>
 							</div>
 							<div class="inputDiv">
-								<span>Publisher Name</span> <select name="publisher_name">
-								<%
-									Set<Publisher> publisherList = (Set<Publisher>) request.getAttribute("publisherDetails");
-									%>
+								<span>Publisher Name</span> <select name="publisher_name"
+									required>
+
 									<%
 									for (Publisher publisher : publisherList) {
 									%>
@@ -230,10 +253,8 @@ nav ul li a {
 								</select>
 							</div>
 							<div class="inputDiv">
-								<span>Category Name</span> <select name="category_name">
-									<%
-									Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryDetails");
-									%>
+								<span>Category Name</span> <select name="category_name" required>
+
 									<%
 									for (Category category : categoryList) {
 									%>
@@ -249,7 +270,7 @@ nav ul li a {
 							</div>
 							<div class="inputDiv">
 								<span>Price</span> <input type="number" name="price" id="number"
-									placeholder="Price" required>
+									placeholder="Price" min="1" required>
 							</div>
 							<div id="submit">
 								<input type="submit" value="SUBMIT" id="submit">
@@ -260,6 +281,30 @@ nav ul li a {
 			</div>
 		</div>
 	</section>
+
+	<script>
+		// Get a reference to the date input field
+		const dateInput = document.getElementById("date");
+
+		// Add an event listener to the input field
+		dateInput.addEventListener("change", function() {
+			// Get the selected date value
+			const selectedDate = new Date(dateInput.value);
+
+			// Get today's date
+			const today = new Date();
+
+			// Compare the selected date with today's date
+			if (selectedDate <= today) {
+				// Valid date, do nothing
+			} else {
+				// Invalid date, reset the input field
+				dateInput.value = "";
+				alert("Please select a date that is today or earlier.");
+			}
+		});
+	</script>
+
 </body>
 
 </html>

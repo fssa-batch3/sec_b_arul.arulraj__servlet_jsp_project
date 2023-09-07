@@ -14,6 +14,7 @@ import in.fssa.technolibrary.exception.ServiceException;
 import in.fssa.technolibrary.exception.ValidationException;
 import in.fssa.technolibrary.model.Book;
 import in.fssa.technolibrary.service.BookService;
+import in.fssa.technolibrary.service.CategoryService;
 
 /**
  * Servlet implementation class FindBookByCategoryServlet
@@ -25,12 +26,16 @@ public class FindBookByCategoryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String categoryIdParam = request.getParameter("categoryId");
 		int id = Integer.parseInt(categoryIdParam);
 		BookService bookService = new BookService();
+		CategoryService categoryService = new CategoryService();
 		try {
+			
+			String category = categoryService.findCategoryById(id);
+			request.setAttribute("categoryName", category);
 			Set<Book> listOfBook = bookService.findBookByCategoryId(id);
-			System.out.println(listOfBook);
 			request.setAttribute("categoryDetails", listOfBook);
 			RequestDispatcher rd = request.getRequestDispatcher("/get_book_by_category_id.jsp");
 			rd.forward(request, response);
