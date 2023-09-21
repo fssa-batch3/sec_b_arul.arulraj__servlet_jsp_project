@@ -29,7 +29,7 @@ public class DeleteBookServlet extends HttpServlet {
 		BookService bookService = new BookService();
 		try {
 			bookService.deleteBook(id);
-			response.sendRedirect(request.getContextPath()+"/book_list.jsp");
+			response.sendRedirect(request.getContextPath()+"/book/list");
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
 		}

@@ -31,7 +31,7 @@ public class AddPublisherServlet extends HttpServlet {
 			newPublisher.setName(request.getParameter("name"));
 			
 			PublisherService.createPublisher(newPublisher);
-			response.sendRedirect(request.getContextPath()+"/publisher_list");
+			response.sendRedirect(request.getContextPath()+"/publisher/list");
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		} catch (ServiceException e) {

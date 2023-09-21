@@ -33,6 +33,8 @@ public class GetAllBookServlet extends HttpServlet {
 				Set<Book> bookList = bookService.findAllBook();
 				CategoryService categoryService = new CategoryService();
 				Set<Category> categoryList = categoryService.findAllcategory();
+				System.out.println(bookList);
+				System.out.println(categoryList);
 				request.setAttribute("bookDetails", bookList);
 				request.setAttribute("categoryDetails", categoryList);
 	    		RequestDispatcher rd = request.getRequestDispatcher("/book_list.jsp");

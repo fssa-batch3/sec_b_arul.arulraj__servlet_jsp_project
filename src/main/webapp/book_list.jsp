@@ -1,3 +1,4 @@
+<%@page import="in.fssa.technolibrary.model.User"%>
 <%@page import="in.fssa.technolibrary.model.Category"%>
 <%@page import="in.fssa.technolibrary.model.Book"%>
 <%@page import="java.util.Set"%>
@@ -122,11 +123,18 @@ button:hover {
 .hide {
 	display: none;
 }
+.btn2{
+	margin: 0px;
+	position: absolute ;
+	top: 120px;
+	left: 93%;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<h1>List Of Books</h1>
+	
 	<section class="mainsection">
 		<section class="section1">
 			<%
@@ -164,6 +172,23 @@ button:hover {
 
 					<button type="submit">Apply Filter</button>
 				</form>
+			</div>
+			<div>
+			<%
+	User user = (User) session.getAttribute("user");
+	String loggedInUserEmail = user != null ? user.getEmail() : "";
+	String adminEmail = "admin05@gmail.com"; // Change this to the admin's email
+
+	// Determine whether the user is the admin
+	boolean isAdmin = loggedInUserEmail.equals(adminEmail); // Change this to your actual logic
+	if (isAdmin) {
+	%>
+	<a href="<%=request.getContextPath()%>/book/new"><button class="btn2">ADD BOOK</button></a>
+
+	<%
+	}
+	%>
+			
 			</div>
 		</section>
 

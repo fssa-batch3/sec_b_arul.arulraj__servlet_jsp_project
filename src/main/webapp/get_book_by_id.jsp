@@ -1,3 +1,4 @@
+<%@page import="in.fssa.technolibrary.model.User"%>
 <%@page import="in.fssa.technolibrary.model.Book"%>
 <%@page import="java.util.Set"%>
 <%@page import="in.fssa.technolibrary.service.BookService"%>
@@ -115,6 +116,14 @@ section.right button.btn-primary {
 	String category = (String) request.getAttribute("CategoryDetail");
 	%>
 	<%
+    User user = (User) session.getAttribute("user");
+    String loggedInUserEmail = user != null ? user.getEmail() : "";
+    String adminEmail = "admin05@gmail.com"; // Change this to the admin's email
+
+    // Determine whether the user is the admin
+    boolean isAdmin = loggedInUserEmail.equals(adminEmail);
+    %>
+	<%
 	if (book != null) {
 	%>
 	<section class="top">
@@ -145,11 +154,13 @@ section.right button.btn-primary {
 			<p>
 				<strong>Published Date:</strong>
 				<%=book.getPublishedDate()%></p>
-			<a
-				href="<%=request.getContextPath()%>/book_list/edit?id=<%=book.getId()%>"><button>Edit</button></a>
-			<a onclick="return confirm('Are you sure to delete this book?');"
-				href="<%=request.getContextPath()%>/book/delete?id=<%=book.getId()%>"><button>Delete</button></a>
-		</section>
+			<% if (isAdmin) { %>
+            <a href="<%=request.getContextPath()%>/book_list/edit?id=<%=book.getId()%>"><button>Edit</button></a>
+            <a onclick="return confirm('Are you sure to delete this book?');" href="<%=request.getContextPath()%>/book/delete"><button>Delete</button></a>
+        <% } else { %>
+            <a href="<%=request.getContextPath()%>/order/new?id=<%=book.getId()%>"><button id="buyButton">Buy</button></a>
+        <% } %>
+        </section>
 	</section>
 	<%
 	} else {
@@ -158,5 +169,24 @@ section.right button.btn-primary {
 	<%
 	}
 	%>
+	
+	<script>
+	
+	document.getElementById('buyButton').addEventListener('click', function(event) {
+	    // Check if the user is logged in (you can modify this condition as needed)
+	    var isLoggedIn = <%= (user != null) %>;
+	    
+	    if (!isLoggedIn) {
+	        event.preventDefault(); // Prevent the default behavior (i.e., following the link)
+	        
+	        // Display an alert to the user
+	        alert('Please log in to make a purchase.');
+	        
+	        // Redirect to the login page (you need to specify the URL)
+	        window.location.href = '<%= request.getContextPath() %>/user/login'; // Change '/login' to the actual login page URL
+	    }
+	});
+	
+	</script>
 </body>
 </html>
