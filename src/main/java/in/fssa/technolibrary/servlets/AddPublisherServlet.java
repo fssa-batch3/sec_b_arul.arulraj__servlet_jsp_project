@@ -1,6 +1,9 @@
 package in.fssa.technolibrary.servlets;
 
 import java.io.IOException;
+import java.util.Set;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +14,7 @@ import in.fssa.technolibrary.exception.ServiceException;
 import in.fssa.technolibrary.exception.ValidationException;
 import in.fssa.technolibrary.model.Publisher;
 import in.fssa.technolibrary.service.PublisherService;
+import in.fssa.technolibrary.util.Logger;
 
 /**
  * Servlet implementation class AddPublisherServlet
@@ -27,15 +31,20 @@ public class AddPublisherServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		Publisher newPublisher = new Publisher();
+		PublisherService publisherService = new PublisherService();
+		Set<Publisher> listOfPublisher = null;
+		
 		try {
 			newPublisher.setName(request.getParameter("name"));
-			
+			listOfPublisher = publisherService.findAllPublisher();
 			PublisherService.createPublisher(newPublisher);
 			response.sendRedirect(request.getContextPath()+"/publisher/list");
-		} catch (ValidationException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
+		} catch (ValidationException | ServiceException e) {
+			Logger.error(e);
+			request.setAttribute("publisherDetails", listOfPublisher);
+			request.setAttribute("error", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/publisher_list.jsp?error=");
+			rd.forward(request, response);
 		}
 
 	}

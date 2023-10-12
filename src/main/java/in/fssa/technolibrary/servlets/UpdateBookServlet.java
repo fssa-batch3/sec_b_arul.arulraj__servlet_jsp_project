@@ -1,6 +1,8 @@
 package in.fssa.technolibrary.servlets;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.technolibrary.exception.ServiceException;
 import in.fssa.technolibrary.model.Book;
 import in.fssa.technolibrary.service.BookService;
+import in.fssa.technolibrary.util.Logger;
 
 /**
  * Servlet implementation class UpdateTitleAndDateServlet
@@ -48,7 +51,10 @@ public class UpdateBookServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/book/list");
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			Logger.error(e);
+			request.setAttribute("error", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/edit_book.jsp?error=");
+			rd.forward(request, response);
 		}
 	}
 

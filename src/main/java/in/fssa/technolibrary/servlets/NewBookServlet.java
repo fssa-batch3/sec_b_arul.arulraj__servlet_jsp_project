@@ -15,6 +15,7 @@ import in.fssa.technolibrary.model.Category;
 import in.fssa.technolibrary.model.Publisher;
 import in.fssa.technolibrary.service.CategoryService;
 import in.fssa.technolibrary.service.PublisherService;
+import in.fssa.technolibrary.util.Logger;
 
 /**
  * Servlet implementation class NewBookServlet
@@ -37,7 +38,7 @@ public class NewBookServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/add_book.jsp");
 			rd.forward(request, response);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 		
 		

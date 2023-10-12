@@ -129,9 +129,91 @@ button:hover {
 	top: 120px;
 	left: 93%;
 }
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+}
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+.popup {
+	margin: 70px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	left: 500px;
+	top: 100px;
+	transition: all 5s ease-in-out;
+}
+.popup h2 {
+	margin-top: 0;
+	color: #333;
+	font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+.popup .close:hover {
+	color: #06D85F;
+}
+.popup .content {
+	max-height: 30%;
+	overflow: auto;
+}
+#alert {
+	padding: 0.4rem 2rem 0.2rem 2rem;
+	margin: 1rem 0rem 0rem 8rem;
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 10px;
+}@media screen and (max-width: 700px) {
+	.box {
+		width: 70%;
+	}
+	.popup {
+		width: 70%;
+	}
+}
 </style>
 </head>
 <body>
+
+<%
+	String errorMsg = (String) request.getAttribute("error");
+	String email = (String) request.getAttribute("email");
+	String password = (String) request.getAttribute("password");
+	%>
+	<%
+	if (errorMsg != null && !errorMsg.isEmpty()) {
+	%>
+	<div id="popup1" class="overlay">
+		<div class="popup">
+			<h2>Alert !</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				<%=errorMsg%>
+			</div>
+			<button id="alert" onclick="closeAlert()" type="button">Ok</button>
+		</div>
+	</div>
+	<%
+	}
+	%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<h1>List Of Books</h1>
 	
@@ -147,7 +229,8 @@ button:hover {
 			<div class="search_box">
 				<form action="<%=request.getContextPath()%>/book_list/authorDetails"
 					method="get">
-					<input placeholder="Search Author" type="text" name="authorName" />
+					<input 
+					pattern="[a-zA-Z ]+" title="Only contain Alphabets" placeholder="Search Author" type="text" name="authorName" />
 
 					<button type="submit">Search</button>
 				</form>
@@ -227,5 +310,6 @@ button:hover {
 			</div>
 		</section>
 	</section>
+	<script src="<%=request.getContextPath()%>/assets/JS/errordiv.js"></script>
 </body>
 </html>

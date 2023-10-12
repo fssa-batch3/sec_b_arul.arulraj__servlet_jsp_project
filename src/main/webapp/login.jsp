@@ -155,7 +155,7 @@ color:black;
 				<div class="form-group">
 					<input name="userpassword" id="user_password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 							title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
-						required> <label for="user_password">password</label> <i
+						required> <label for="user_password"> New password</label> <i
 						class="fas fa-lock" ></i>
 				</div>
 				<div class="password-toggle-2">
@@ -217,6 +217,7 @@ color:black;
 	</div>
 	<script src="https://kit.fontawesome.com/9e5ba2e3f5.js"
 		crossorigin="anonymous"></script>
+		<script src="<%=request.getContextPath()%>/assets/JS/errordiv.js"></script>
 	<script>
 	    const wrapper = document.querySelector('.wrapper');
 	    const signUpLink = document.querySelector('.link .signin-link');
@@ -234,7 +235,7 @@ color:black;
 	</script>
 	<script>
 	function checkPassword() {
-	    let user_password = document.getElementById("user_password1").value;
+	    let user_password = document.getElementById("user_password").value;
 	    let confirm_password = document.getElementById("confirm_password").value;
 	    
 	    if (user_password !== confirm_password) {
@@ -244,11 +245,6 @@ color:black;
 	    }
 	    
 	    return true;
-	}
-	
-	function closeAlert() {
-		var alertDiv = document.getElementById("popup1");
-		alertDiv.style.display = "none";
 	}
 	
 	const passwordInput1 = document.getElementById('user_password1');

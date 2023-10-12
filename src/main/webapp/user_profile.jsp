@@ -16,12 +16,47 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/CSS/profile.css">
 <title>User Profile</title>
+<style>
+	body {
+    background: #fff;
+    overflow: hidden;
+    padding-top: 0px;
+    font-family: "Poppins", sans-serif;
+}
+.order-list{
+	width: 1200px;
+	background-color: #fff;
+	padding: 20px;
+}
+.right-side{
+	overflow-y: scroll;
+    height: 90vh;
+}
+.right-side::-webkit-scrollbar {
+    width: 0;
+}
+
+.right-side::-webkit-scrollbar-thumb {
+    background-color: transparent; 
+    }
+
+.width{
+  width: 100%;
+}
+.empty{
+	margin-left: 250px;
+}
+.empty2{
+	position: relative;
+	top: 100px;
+}
+</style>
 </head>
 <body>
 	<%
 	User user = (User) request.getAttribute("UserDetail");
 	%>
-
+	
 	<div class="container">
 		<div class="profile-header">
 			<div class="profile-img">
@@ -79,8 +114,9 @@
 					<form action="<%=request.getContextPath()%>/user/update"
 						method="post" enctype="multipart/form-data">
 						<input type="hidden" id="imageUrl" name="imageUrl" required>
-						<label for="imageFile">Select image File:</label> <input
-							type="file" name="imageFile" id="imageFile"> <br> <br>
+						<label for="imageFile">Select image File:</label> 
+						<input type="file" name="imageFile" id="imageFile">
+						 <br> <br>
 						<small><strong>Do not upload image that exceeds
 								limit of 5 Mb.</strong></small> <small> <strong>Please wait
 								don't click upload Image again.</strong>
@@ -104,6 +140,16 @@
 						<li id="border1" class="user-post active">Order Status</li>
 					</ul>
 				</div>
+				<div class="empty">
+				<div class="empty2">
+				   <h3>Your Bag is empty</h3>
+					<h5>Buy something to make me happy :)</h5>
+					</div>
+					
+				   <img src="https://iili.io/JJAGhQt.jpg" style="width: 700px; height:700px;" alt="Image Description">
+				   
+				</div>
+				
 				<div class="profile-body">
 					<div class="profile-posts ">
 						<div class="order-list radius-6">
@@ -123,11 +169,9 @@
 								<tbody>
 									<%
 									Set<Order> orderList = (Set<Order>) request.getAttribute("orderDetails");
-									%>
-									<%
+									
 									List<Book> bookList = (List<Book>) request.getAttribute("BookDetail");
-									%>
-									<%
+									
 										SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format
 										Calendar calendar = Calendar.getInstance();
 										
@@ -179,7 +223,7 @@
 											        %>
 											    </span>
 											</td>
-										    <td><i class="fas fa-ellipsis-h"></i></td>
+										    
 										</tr>
 										<%
 										count++;
@@ -195,7 +239,7 @@
 				</div>
 			</div>
 		</div>
-
+</div>
 		<nav id="sideNav">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/index">Home</a></li>
@@ -205,8 +249,12 @@
 			</ul>
 		</nav>
 		<img src="https://iili.io/HyVl5l4.png" id="menuBtn">
+		
+		
 		<script src="<%=request.getContextPath()%>/assets/JS/profile.js"></script>
 		<script>
+		
+		//image uploading
 	
 	const uploadImageButton = document.getElementById("uploadImageButton");
 	const submitButton = document.getElementById("submitButton");
@@ -254,9 +302,24 @@
     });
 	        }
      
-     //for show the order count
-	const count = <%=count%>;
-    document.querySelector(".rating").textContent = count; 
+  // Get the count value from JSP
+     const count = <%=count%>;
+
+     // Get references to the table and empty div
+     const table = document.querySelector(".profile-body");
+     const emptyDiv = document.querySelector(".empty");
+
+     // Check if count is zero and toggle visibility accordingly
+     if (count === 0) {
+         table.style.display = "none"; // Hide the table
+         emptyDiv.style.display = "block"; // Show the empty div
+     } else {
+         table.style.display = "block"; // Show the table
+         emptyDiv.style.display = "none"; // Hide the empty div
+     }
+
+     // Set the count value in the user-rating element
+     document.querySelector(".rating").textContent = count;
 	</script>
 </body>
 </html>

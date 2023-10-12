@@ -14,6 +14,19 @@
 	#myform{
 	 margin-top : 0px;
 	}
+	.okay-button{
+		font-family: 'Open Sans', sans-serif;
+	    width: 25%;
+	    height: 40px;
+	    background: #f67c9281;
+	    font-size: 0.9em;
+	    transition: all 0.3s ease;
+	}
+	.okay-button:hover{
+		background: #f67c92;
+	    border-color: #f67c92;
+	    cursor: pointer;
+	}
 </style>
 </head>
 <body>
